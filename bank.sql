@@ -13,7 +13,7 @@ create table expenses (
 	username varchar(100),
 	expense_id char(5),
 	planned boolean,
-    ammount double,
+    amount double,
     information varchar(5000),
     due_date date,
 	foreign key (username) references users(username),
