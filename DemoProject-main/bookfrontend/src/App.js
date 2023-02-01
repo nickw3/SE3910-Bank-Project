@@ -9,6 +9,8 @@ import LoginForm from './pages/user/LoginForm';
 import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/user/UpdateForm';
 import Detail from './pages/book/Detail';
+import MonthlyCalendarView from './pages/user/MonthlyCalendarView';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" exact={true} component={LoginForm}/>
         <Route path="/join" exact={true} component={JoinForm}/>
         <Route path="/update/:id" exact={true} component={UpdateForm}/>
+        <Route path="/testCalendar" exact={true} component={MonthlyCalendarView}/>
       </Container>    
     </div>
   );
