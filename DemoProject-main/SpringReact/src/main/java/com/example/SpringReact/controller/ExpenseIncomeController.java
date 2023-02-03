@@ -64,10 +64,6 @@ public class ExpenseIncomeController {
             list.add(expense);
         }
 
-        for(ExpenseIncome a : list){
-            System.out.println(a.getExpense_id() + " " + a.getUsername());
-        }
-
         return list;
     }
 
