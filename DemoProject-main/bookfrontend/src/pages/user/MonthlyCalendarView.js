@@ -15,7 +15,10 @@ function tileContent(){
 function MonthlyCalendarView() {
   return (
     <div>
-        <Calendar onChange={(changeValue)} tileContent={tileContent}/>
+      <header class="loginheader">
+          <div className="banklogo"/>
+      </header>
+      <Calendar onChange={(changeValue)} tileContent={tileContent}/>
     </div>
   );
 }

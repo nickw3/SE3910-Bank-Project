@@ -14,18 +14,79 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 60px;
+  text-align: center;
+  background: #04644b;
   color: white;
+  font-size: 30px;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.banklogo {
+  background-image: url(./bank_logo_white.png);
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  padding-top: 50px;
+}
+
+.loginheader {
+  height: 74px;
+  padding: 2px 2px 2px 2px;
+  background-color: #04644b;
+  box-sizing: border-box;
+}
+
+.loginformheader {
+  text-align: center;
+  background-color: #003c2a;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 2px 2px 2px 2px;
+}
+
+.loginspacer {
+  width: 321px;
+  height: 47px;
+  padding: 2px 2px 2px 2px;
+  box-sizing: border-box;
+}
+
+.loginforms {
+  background-color: #04644b;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #ffffff;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginsubmit {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.accountbalance {
+  font-size: 40px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {

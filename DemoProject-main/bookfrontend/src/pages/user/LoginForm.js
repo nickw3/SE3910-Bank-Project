@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import {Link} from 'react-router-dom';
  
 function LoginForm(props) {
 
@@ -40,7 +41,7 @@ function LoginForm(props) {
     .then(res=>{
       console.log(res)
       if(res!==null){
-        props.history.push('/balanceAdjustmentView');
+        props.history.push('/balanceAdjustment/' + bankuser.username);
       }else{
         alert('fails');
       }
@@ -51,22 +52,35 @@ function LoginForm(props) {
 
   return (
     <div>
-       
-      <Form onSubmit = {login}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" onChange = {changeValue} name="username" value={bankuser.username}/>
-        </Form.Group>
+      <header class="loginheader">
+        <div className="banklogo"/>
+      </header>
+      <div class="loginspacer" />
+      <div className="login">
+        <Form onSubmit = {login} >
+          <Form.Group controlId="formBasicEmail" className="loginformheader" >
+            <Form.Label>Welcome Back</Form.Label>
+          </Form.Group>
 
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="text" placeholder="Enter password" onChange = {changeValue} name="password" value={bankuser.password}/>
-        </Form.Group>
+          <div className="loginforms">
+            <Form.Group controlId="formBasicEmail" className='group1'>
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" placeholder="Enter username" onChange = {changeValue} name="username" value={bankuser.username}/>
+            </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit  
-        </Button>
-      </Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="text" placeholder="Enter password" onChange = {changeValue} name="password" value={bankuser.password}/>
+            </Form.Group>
+
+            <div className="loginsubmit">
+              <Button type="submit" variant="secondary">
+                Submit  
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

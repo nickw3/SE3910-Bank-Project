@@ -66,4 +66,29 @@ public class LoginController {
 
         return bankUser;
     }
+
+    @CrossOrigin
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getUser(@PathVariable("id") String id) throws SQLException {
+
+
+        if(getUserHelper(id).getUsername().isEmpty()){
+            return new ResponseEntity<>(getUserHelper(id), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(getUserHelper(id), HttpStatus.OK);
+    }
+
+    public BankUser getUserHelper (String username) throws SQLException {
+
+        ResultSet user = statement.executeQuery("SELECT * FROM bank.users WHERE username = '" + username + "'");
+        BankUser bankUser = new BankUser();
+        if(user.next()){
+            bankUser.setUsername(user.getString("username"));
+            bankUser.setName(user.getString("name"));
+            bankUser.setTotal_balance(user.getDouble("total_balance"));
+            bankUser.setSavings_goal(user.getDouble("savings_goal"));
+        }
+
+        return bankUser;
+    }
 }

@@ -8,6 +8,8 @@ function BankUser(props) {
   return (
     <Card>
         <Card.Body>
+            <Card.Title> {username} : {name} : </Card.Title>
+            <Card.Text> {password} {total_balance} {savings_goal}</Card.Text>
         </Card.Body>
     </Card>
   );

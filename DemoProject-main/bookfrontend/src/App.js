@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './CommerceBankLogo.png';
 import './App.css';
 import {Container} from 'react-bootstrap';
 import {Route} from 'react-router-dom';
@@ -16,16 +16,15 @@ import BalanceAdjustmentView from './pages/user/BalanceAdjustmentView'
 function App() {
   return (
     <div>
-      <Header/>
       <Container>
-        <Route path="/" exact={true} component={Home}/>
+        <Route path="/" exact={true} component={LoginForm}/>
         <Route path="/save" exact={true} component={SaveForm}/>
         <Route path="/book/:id" exact={true} component={Detail}/>
         <Route path="/login" exact={true} component={LoginForm}/>
         <Route path="/join" exact={true} component={JoinForm}/>
         <Route path="/update/:id" exact={true} component={UpdateForm}/>
         <Route path="/testCalendar" exact={true} component={MonthlyCalendarView}/>
-        <Route path="/balanceAdjustment" exact={true} component={BalanceAdjustmentView}/>
+        <Route path="/balanceAdjustment/:id" exact={true} component={BalanceAdjustmentView}/>
       </Container>    
     </div>
   );

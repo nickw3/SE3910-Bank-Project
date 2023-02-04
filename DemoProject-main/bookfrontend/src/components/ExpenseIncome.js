@@ -6,13 +6,15 @@ function Expense(props) {
 
   const {username, expense_id, planned, amount, income_or_expense, information, due_date} = props.expense;
   return (
-    <Card>
-        <Card.Body>
-            <Card.Title> {username} : {expense_id} : </Card.Title>
-            <Card.Text> {planned} {amount} {income_or_expense}</Card.Text>
-            <Card.Text> {information} {due_date}</Card.Text>
-        </Card.Body>
-    </Card>
+    <tr>
+        <td>{username}</td>
+        <td>{expense_id}</td>
+        <td>{planned}</td>
+        <td>{amount}</td>
+        <td>{income_or_expense}</td>
+        <td>{information}</td>
+        <td>{due_date}</td>
+      </tr>
   );
 }
 

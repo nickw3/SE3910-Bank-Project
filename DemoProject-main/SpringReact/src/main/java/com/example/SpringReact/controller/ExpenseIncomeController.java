@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,39 @@ public class ExpenseIncomeController {
         ArrayList<ExpenseIncome> list = new ArrayList<ExpenseIncome>();
 
         ResultSet expenseIncomes = statement.executeQuery("SELECT * FROM bank.expenses");
+
+        while(expenseIncomes.next()){
+            ExpenseIncome expense = new ExpenseIncome();
+            String username = expenseIncomes.getString("username");
+            String expense_id = expenseIncomes.getString("expense_id");
+            String planned = expenseIncomes.getString("planned");
+            double amount = expenseIncomes.getDouble("amount");
+            int income_or_expense = expenseIncomes.getInt("income_or_expense");
+            String information = expenseIncomes.getString("information");
+            String due_date = expenseIncomes.getString("due_date");
+            expense.setUsername(username);
+            expense.setExpense_id(expense_id);
+            expense.setPlanned(planned);
+            expense.setAmount(amount);
+            expense.setIncome_or_expense(income_or_expense);
+            expense.setInformation(information);
+            expense.setDue_date(due_date);
+            list.add(expense);
+        }
+
+        return list;
+    }
+
+    @CrossOrigin
+    @GetMapping("/expense/{id}")
+    public ResponseEntity<?> findUserExpenses(@PathVariable("id") String id) throws SQLException {
+        return new ResponseEntity<>(finderUserExpensesHelper(id), HttpStatus.OK);
+    }
+
+    public ArrayList<ExpenseIncome> finderUserExpensesHelper (String id) throws SQLException {
+        ArrayList<ExpenseIncome> list = new ArrayList<ExpenseIncome>();
+
+        ResultSet expenseIncomes = statement.executeQuery("SELECT * FROM bank.expenses where username = '" + id + "'");
 
         while(expenseIncomes.next()){
             ExpenseIncome expense = new ExpenseIncome();
