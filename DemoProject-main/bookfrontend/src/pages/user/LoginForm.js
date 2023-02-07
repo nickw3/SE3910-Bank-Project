@@ -63,7 +63,7 @@ function LoginForm(props) {
           </Form.Group>
 
           <div className="loginforms">
-            <Form.Group controlId="formBasicEmail" className='group1'>
+            <Form.Group controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
               <Form.Control type="text" placeholder="Enter username" onChange = {changeValue} name="username" value={bankuser.username}/>
             </Form.Group>
