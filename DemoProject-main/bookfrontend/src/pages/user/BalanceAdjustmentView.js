@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Table } from 'react-bootstrap';
 import BankUser from '../../components/BankUser';
 import ExpenseIncome from '../../components/ExpenseIncome';
@@ -6,26 +6,17 @@ import ExpenseIncome from '../../components/ExpenseIncome';
 function BalanceAdjustmentView(props) {
 
   const id=props.match.params.id;
-  var rows = 0;
-
-  console.log(id);
-
   const[user, setUser] = useState([]);
   const[expenses, setExpense] = useState([]);
-
-  function renderExpense(expense, index) {
-    return (
-      <tr key={index}>
-        <td>{expense.username}</td>
-        <td>{expense.expense_id}</td>
-        <td>{expense.planned}</td>
-        <td>{expense.ammount}</td>
-        <td>{expense.income_or_expense}</td>
-        <td>{expense.information}</td>
-        <td>{expense.due_date}</td>
-      </tr>
-    )
-  }
+  const[newExpense, setNewExpense] = useState({
+    username:id,
+    expense_id: '',
+    planned:'',
+    amount: '',
+    income_or_expense: '',
+    information: '',
+    due_date: ''
+  });
 
   useEffect(()=>{
     fetch("http://localhost:8080/expense/" + id, {method:"GET"})
@@ -35,7 +26,43 @@ function BalanceAdjustmentView(props) {
     .then(res => res.json())
     .then(res=> {setUser(res);})
   },[])
-  
+
+  const changeValue=(e)=>{
+    console.log(e);
+    setNewExpense({
+     ...newExpense, [e.target.name]:e.target.value  
+    });
+    fetch("http://localhost:8080/expense/" + id, {method:"GET"})
+      .then(res => res.json())
+      .then(res=> {setExpense(res);})
+  }
+
+  const createNewExpense =(e)=>{
+    e.preventDefault();
+    fetch("http://localhost:8080/createExpense", {
+      method:"PUT",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(newExpense)
+    })
+    .then(res=>{
+        console.log(1,res);
+        if(res.status === 200){
+          return res.json();
+        }else{
+          return null;
+        }
+      });
+  }
+
+  const refreshTable =()=>{
+    fetch("http://localhost:8080/expense/" + id, {method:"GET"})
+      .then(res => res.json())
+      .then(res=> {setExpense(res);}
+    );
+  }
+
   return (
     <div>
       <header class="loginheader">
@@ -62,6 +89,36 @@ function BalanceAdjustmentView(props) {
           {expenses.map(expense => <ExpenseIncome key={expense.expense_id} expense = {expense}/>)}
         </tbody>
       </Table>
+      <Button type="button" variant="secondary" onClick={refreshTable}>
+                Refresh  
+      </Button>
+      <div className="newexpenseform">
+        <Form onSubmit={createNewExpense}>
+            <Form.Group>
+              <Form.Label>Planned</Form.Label>
+              <Form.Control type="text" placeholder="Enter 1 if planned or 0 if unplanned" onChange = {changeValue} name="planned" value={newExpense.planned}/>
+            </Form.Group>
+              <Form.Label>Amount</Form.Label>
+              <Form.Control type="text" placeholder="Enter amount" onChange = {changeValue} name="amount" value={newExpense.amount}/>
+            <Form.Group>
+              <Form.Label>Income or Expense</Form.Label>
+              <Form.Control type="text" placeholder="Enter 1 for income or 0 for expense" onChange = {changeValue} name="income_or_expense" value={newExpense.income_or_expense}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Information</Form.Label>
+              <Form.Control type="text" placeholder="Enter information" onChange = {changeValue} name="information" value={newExpense.information}/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Due Date</Form.Label>
+              <Form.Control type="text" placeholder="Enter due-date YYYY-MM-DD" onChange = {changeValue} name="due_date" value={newExpense.due_date}/>
+            </Form.Group>
+            <div className="expensesubmit">
+              <Button type="submit" variant="secondary">
+                Submit  
+              </Button>
+            </div>
+          </Form>
+        </div>
     </div>
   );
 }

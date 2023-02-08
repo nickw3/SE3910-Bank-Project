@@ -19,7 +19,7 @@ public class ExpenseIncome {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // use the auto increment of the database
     private String username;
     private String expense_id;
-    private String planned;
+    private int planned;
     private double amount;
     private int income_or_expense;
     private String information;
