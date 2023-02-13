@@ -23,7 +23,7 @@ function App() {
         <Route path="/login" exact={true} component={LoginForm}/>
         <Route path="/join" exact={true} component={JoinForm}/>
         <Route path="/update/:id" exact={true} component={UpdateForm}/>
-        <Route path="/testCalendar" exact={true} component={MonthlyCalendarView}/>
+        <Route path="/testCalendar/:id" exact={true} component={MonthlyCalendarView}/>
         <Route path="/balanceAdjustment/:id" exact={true} component={BalanceAdjustmentView}/>
       </Container>    
     </div>
