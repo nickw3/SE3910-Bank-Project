@@ -91,4 +91,19 @@ public class LoginController {
 
         return bankUser;
     }
+
+    //set balance
+    @CrossOrigin
+    @RequestMapping(value = "/userInitialBalance/{id}/{amount}", method = RequestMethod.GET)
+    public ResponseEntity<?> setInitialBalance(@PathVariable("id") String id, @PathVariable("amount") double amount) throws SQLException{
+        return new ResponseEntity<>(setInitialBalanceHelper(id,amount), HttpStatus.OK);
+    }
+
+    public BankUser setInitialBalanceHelper(String username, Double amount) throws SQLException{
+        int user = statement.executeUpdate("UPDATE bank.users SET total_balance = " + amount + " WHERE username = '" + username + "'");
+
+        //only update if total_balance is null?
+        BankUser bankUser = new BankUser();
+        return bankUser;
+    }
 }
