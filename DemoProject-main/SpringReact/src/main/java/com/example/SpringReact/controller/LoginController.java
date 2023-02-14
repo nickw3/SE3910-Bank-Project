@@ -62,6 +62,7 @@ public class LoginController {
             bankUser.setName(user.getString("name"));
             bankUser.setTotal_balance(user.getDouble("total_balance"));
             bankUser.setSavings_goal(user.getDouble("savings_goal"));
+            bankUser.setLoan_amount(user.getDouble("loan_amount"));
         }
 
         return bankUser;
@@ -87,6 +88,7 @@ public class LoginController {
             bankUser.setName(user.getString("name"));
             bankUser.setTotal_balance(user.getDouble("total_balance"));
             bankUser.setSavings_goal(user.getDouble("savings_goal"));
+            bankUser.setLoan_amount(user.getDouble("loan_amount"));
         }
 
         return bankUser;

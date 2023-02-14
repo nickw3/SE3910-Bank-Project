@@ -22,5 +22,6 @@ public class BankUser {
     private String password;
     private double total_balance;
     private double savings_goal;
+    private double loan_amount;
 
 }
