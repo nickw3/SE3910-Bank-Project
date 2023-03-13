@@ -101,9 +101,21 @@ public class LoginController {
 
     public BankUser setInitialBalanceHelper(String username, Double amount) throws SQLException{
         int user = statement.executeUpdate("UPDATE bank.users SET total_balance = " + amount + " WHERE username = '" + username + "'");
-
-        //only update if total_balance is null?
+        ResultSet updatedUser = statement.executeQuery("SELECT * FROM bank.users WHERE username = '" + username + "'");
         BankUser bankUser = new BankUser();
+
+        while(updatedUser.next()){
+            String name = updatedUser.getString("name");
+            String password = updatedUser.getString("password");
+            double total_balance = Double.parseDouble(updatedUser.getString("total_balance"));
+            double savings_goal = Double.parseDouble(updatedUser.getString("savings_goal"));
+            bankUser.setUsername(username);
+            bankUser.setName(name);
+            bankUser.setPassword(password);
+            bankUser.setTotal_balance(total_balance);
+            bankUser.setSavings_goal(savings_goal);
+        }
+
         return bankUser;
     }
 }
