@@ -46,7 +46,7 @@ public class LoginController {
         System.out.println(username);
         System.out.println(password);
 
-        if(checkLogin(username, password).getUsername().isEmpty()){
+        if(checkLogin(username, password).getUsername() == null){
             return new ResponseEntity<>(checkLogin(username, password), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(checkLogin(username, password), HttpStatus.OK);
