@@ -1,14 +1,18 @@
 package com.example.SpringReact.controller;
 
 import com.example.SpringReact.domain.ExpenseIncome;
+import com.example.SpringReact.domain.User;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.example.SpringReact.domain.BankUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -140,6 +144,17 @@ public class ExpenseIncomeController {
                                     + "" + income_or_expense + ", '"  + information + "', "
                                     + "'" + due_date + "')");
         return test;
+    }
+
+    @CrossOrigin
+    @PutMapping("/setGoal")
+    public ResponseEntity<?> setSavingsGoal(@RequestBody double savingGoalBankUser) throws SQLException {
+        return new ResponseEntity<>(setSavingsGoalHelper(savingGoalBankUser), HttpStatus.OK);
+    }
+
+    public void setSavingsGoalHelper(double savingGoal) throws SQLException {
+            String updateSavingsGoal = "update users set savings_goal = ? where username = '" + id + "'";
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
