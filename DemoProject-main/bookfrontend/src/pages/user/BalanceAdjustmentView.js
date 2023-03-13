@@ -18,6 +18,7 @@ function BalanceAdjustmentView(props) {
     due_date: ''
   });
 
+
   useEffect(()=>{
     fetch("http://localhost:8080/expense/" + id, {method:"GET"})
       .then(res => res.json())
@@ -63,6 +64,30 @@ function BalanceAdjustmentView(props) {
     );
   }
 
+  //Ally's code for submitting initial balance
+  //check if user is logged in for first time
+  const isFirstTimeUser = user && user.total_balance === 0;
+  //add initial balance, in this case we will start with $125 until I can figure out how to do user input as well
+  const addInitialBalance = () => {
+    setUser({
+      ...user,
+      total_balance: 125
+    });
+
+    fetch("http://localhost:8080/user/" + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ...user,
+        total_balance: 125
+      })
+    });
+  };
+  
+  
+
   return (
     <div>
       <header class="loginheader">
@@ -71,6 +96,14 @@ function BalanceAdjustmentView(props) {
       <Form>
         <Form.Group controlId="formBasicEmail" className="balanceform" class="accountbalance">
           <Form.Label>Account Balance {user.total_balance}</Form.Label>
+          <br></br>
+          {isFirstTimeUser && (
+            <Button 
+              variant="primary"
+              onClick={addInitialBalance}
+              className="ml-3"
+            >Add Initial Balance</Button>
+          )}
         </Form.Group>
       </Form>
       <Table>
