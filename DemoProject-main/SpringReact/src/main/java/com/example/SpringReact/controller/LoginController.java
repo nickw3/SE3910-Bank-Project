@@ -96,7 +96,11 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "/userInitialBalance/{id}/{amount}", method = RequestMethod.GET)
     public ResponseEntity<?> setInitialBalance(@PathVariable("id") String id, @PathVariable("amount") double amount) throws SQLException{
-        return new ResponseEntity<>(setInitialBalanceHelper(id,amount), HttpStatus.OK);
+        BankUser user = setInitialBalanceHelper(id,amount);
+        if(user.getUsername() == null){
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     public BankUser setInitialBalanceHelper(String username, Double amount) throws SQLException{
