@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import {Link} from 'react-router-dom';
+import Header from '../../components/Header';
  
 function LoginForm(props) {
 
@@ -55,6 +56,7 @@ function LoginForm(props) {
       <header class="loginheader">
         <div className="banklogo"/>
       </header>
+      <Header/>
       <div class="loginspacer" />
       <div className="login">
         <Form onSubmit = {login} >

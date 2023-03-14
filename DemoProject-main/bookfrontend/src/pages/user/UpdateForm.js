@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import Header from '../../components/Header';
  
 function UpdateForm(props) {
 
@@ -60,7 +61,12 @@ function UpdateForm(props) {
 
   return (
     <div>
-       
+            <header class="loginheader">
+          <div className="banklogo"/>
+      </header>
+      <div>
+        <Header/>
+      </div>
       <Form onSubmit = {submitBook}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>

@@ -20,19 +20,17 @@ function App() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu variant="dark">
-            <Dropdown.Item href="/JoinForm">Join</Dropdown.Item>
-            <Dropdown.Item href="/LoginForm">Login</Dropdown.Item>
-            <Dropdown.Item href="/Detail">Detail</Dropdown.Item>
+            <Dropdown.Item href="/join">Join</Dropdown.Item>
+            <Dropdown.Item href="/">Login</Dropdown.Item>
+            <Dropdown.Item href="/book/:id">Detail</Dropdown.Item>
           </Dropdown.Menu>
       </Dropdown>
 
     <Nav className="me-auto">
-      <Link to ="/MonthlyCalendarView" className = "nav-link">Calendar</Link>
-      <Link to ="/BalanceAdjustmentView" className = "nav-link">Balance</Link>
-      <Link to ="/MonthlyCalendarView" className = "nav-link">Calendar</Link>
-      <Link to ="/SaveForm" className = "nav-link">Save</Link>
-      <Link to ="/UpdateForm" className = "nav-link">Update</Link>
-
+      <Link to ="/testCalendar/:id" className = "nav-link">Calendar</Link>
+      <Link to ="/balanceAdjustment/:id" className = "nav-link">Balance</Link>
+      <Link to ="/save" className = "nav-link">Save</Link>
+      <Link to ="/update/:id" className = "nav-link">Update</Link>
     </Nav>
     </Container>
   </Navbar>

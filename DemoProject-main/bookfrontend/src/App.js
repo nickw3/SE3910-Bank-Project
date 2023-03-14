@@ -24,7 +24,9 @@ function App() {
         <Route path="/join" exact={true} component={JoinForm}/>
         <Route path="/update/:id" exact={true} component={UpdateForm}/>
         <Route path="/testCalendar/:id" exact={true} component={MonthlyCalendarView}/>
+        <Route path="/App" exact={true} component={Header}/>
         <Route path="/balanceAdjustment/:id" exact={true} component={BalanceAdjustmentView}/>
+        <Route path="/Home" exact={true} component={Home}/>
       </Container>    
     </div>
   );

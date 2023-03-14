@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Calendar } from 'react-calendar';
 import { TileContent } from 'react-calendar';
 import ExpenseIncome from '../../components/ExpenseIncome'; 
+import Header from '../../components/Header';
 
 function MonthlyCalendarView(props) {
 
@@ -51,6 +52,7 @@ useEffect(()=>{
       <header class="loginheader">
           <div className="banklogo"/>
       </header>
+      <Header/>
       <Calendar onChange={onChange} value={value} tileContent={tileContent} tileClassName={'calendar-tile'}/>
     </div>
   );
