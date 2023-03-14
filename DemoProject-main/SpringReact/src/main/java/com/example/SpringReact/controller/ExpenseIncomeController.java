@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,7 @@ public class ExpenseIncomeController {
             ExpenseIncome expense = new ExpenseIncome();
             String username = expenseIncomes.getString("username");
             String expense_id = expenseIncomes.getString("expense_id");
-            String planned = expenseIncomes.getString("planned");
+            int planned = expenseIncomes.getInt("planned");
             double amount = expenseIncomes.getDouble("amount");
             int income_or_expense = expenseIncomes.getInt("income_or_expense");
             String information = expenseIncomes.getString("information");
@@ -66,6 +64,86 @@ public class ExpenseIncomeController {
 
         return list;
     }
+
+    @CrossOrigin
+    @GetMapping("/expense/{id}")
+    public ResponseEntity<?> findUserExpenses(@PathVariable("id") String id) throws SQLException {
+        return new ResponseEntity<>(finderUserExpensesHelper(id), HttpStatus.OK);
+    }
+
+    public ArrayList<ExpenseIncome> finderUserExpensesHelper (String id) throws SQLException {
+        ArrayList<ExpenseIncome> list = new ArrayList<ExpenseIncome>();
+
+        ResultSet expenseIncomes = statement.executeQuery("SELECT * FROM bank.expenses where username = '" + id + "'");
+
+        while(expenseIncomes.next()){
+            ExpenseIncome expense = new ExpenseIncome();
+            String username = expenseIncomes.getString("username");
+            String expense_id = expenseIncomes.getString("expense_id");
+            int planned = expenseIncomes.getInt("planned");
+            double amount = expenseIncomes.getDouble("amount");
+            int income_or_expense = expenseIncomes.getInt("income_or_expense");
+            String information = expenseIncomes.getString("information");
+            String due_date = expenseIncomes.getString("due_date");
+            expense.setUsername(username);
+            expense.setExpense_id(expense_id);
+            expense.setPlanned(planned);
+            expense.setAmount(amount);
+            expense.setIncome_or_expense(income_or_expense);
+            expense.setInformation(information);
+            expense.setDue_date(due_date);
+            list.add(expense);
+        }
+
+        return list;
+    }
+
+    @CrossOrigin
+    @PutMapping("/createExpense")
+    public ResponseEntity<?> createUserExpense(@RequestBody ExpenseIncome newExpenseIncome) throws SQLException {
+        return new ResponseEntity<>(createUserExpenseHelper(newExpenseIncome), HttpStatus.OK);
+    }
+
+    public ExpenseIncome createUserExpenseHelper (ExpenseIncome newExpenseIncome) throws SQLException {
+        ArrayList<ExpenseIncome> list = new ArrayList<ExpenseIncome>();
+
+        String username = "";
+        String expense_id = "";
+        int planned;
+        Double amount;
+        int income_or_expense;
+        String information = "";
+        String due_date = "";
+
+        username = newExpenseIncome.getUsername();
+        for(int i = 0; i < 5; i++){
+            expense_id += "" + ThreadLocalRandom.current().nextInt(0, 10);
+        }
+        planned = newExpenseIncome.getPlanned();
+        amount = newExpenseIncome.getAmount();
+        income_or_expense = newExpenseIncome.getIncome_or_expense();
+        information = newExpenseIncome.getInformation();
+        due_date = newExpenseIncome.getDue_date();
+
+        ExpenseIncome test = new ExpenseIncome();
+        test.setUsername(username);
+        test.setUsername(expense_id);
+        test.setUsername(planned + "");
+        test.setUsername(amount + "");
+        test.setUsername(income_or_expense + "");
+        test.setUsername(information);
+        test.setUsername(due_date);
+
+        statement.execute("INSERT INTO bank.expenses VALUES ("
+                                    + "'" + username + "', '"  + expense_id + "', "
+                                    + "" + planned + ", "  + amount + ", "
+                                    + "" + income_or_expense + ", '"  + information + "', "
+                                    + "'" + due_date + "')");
+        return test;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* Old Code from previous database project with examples of querying a database
 
     @GetMapping("SearchAnglerID")
     public String SearchAnglerID(Model model,
@@ -378,4 +456,5 @@ public class ExpenseIncomeController {
         return "leaderboard";
 
     }
+    */
 }

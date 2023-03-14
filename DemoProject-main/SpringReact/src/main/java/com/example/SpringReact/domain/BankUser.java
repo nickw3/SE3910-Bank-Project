@@ -13,18 +13,14 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity //  mapping an object state to database column
-public class ExpenseIncome {
+public class BankUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // use the auto increment of the database
     private String username;
-    private String expense_id;
-    private int planned;
-    private double amount;
-    private int income_or_expense;
-    private String information;
-    private String due_date;
-
-
+    private String name;
+    private String password;
+    private double total_balance;
+    private double savings_goal;
 
 }
