@@ -7,6 +7,7 @@ create table users (
     password varchar(100),
     total_balance double,
     savings_goal double,
+    loan_amount double,
     primary key (username)
 );
 
@@ -22,11 +23,11 @@ create table expenses (
     primary key (expense_id)
 );
 
-insert into users values ('nickw3', 'Nicholas Whorton', 'password', 1000, 200);
-insert into users values ('bretts4', 'Brett Smith', 'password', 2000, 300);
-insert into users values ('carterp5', 'Carter Putnam', 'password', 3000, 400);
-insert into users values ('rileyl6', 'Riley Lowe', 'password', 4000, 500);
-insert into users values ('joshb7', 'Josh Brown', 'password', 5000, 600);
+insert into uuserssers values ('nickw3', 'Nicholas Whorton', 'password', 1000, 200, 0);
+insert into users values ('bretts4', 'Brett Smith', 'password', 2000, 300, 0);
+insert into users values ('carterp5', 'Carter Putnam', 'password', 3000, 400, 0);
+insert into users values ('rileyl6', 'Riley Lowe', 'password', 4000, 500, 0);
+insert into users values ('joshb7', 'Josh Brown', 'password', 5000, 600, 0);
 
 insert into expenses values ('nickw3', '12345', 1, 400, 0, 'rent', '2023-02-01');
 insert into expenses values ('bretts4', '12346', 1, 15, 0, 'netflix', '2023-02-05');
