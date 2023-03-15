@@ -36,6 +36,11 @@
   padding-top: 50px;
 }
 
+.react-calendar__tile {
+  height: 100px;
+  width: 200px;
+}
+
 .loginheader {
   height: 74px;
   padding: 2px 2px 2px 2px;
@@ -87,6 +92,16 @@
 .accountbalance {
   font-size: 40px;
   text-align: center;
+}
+
+.tile-expense {
+  text-align: left;
+  color: red;
+}
+
+.tile-income {
+  text-align: left;
+  color: green;
 }
 
 @keyframes App-logo-spin {
