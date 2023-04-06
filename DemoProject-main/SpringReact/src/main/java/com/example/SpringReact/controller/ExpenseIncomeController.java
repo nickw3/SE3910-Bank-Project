@@ -147,14 +147,19 @@ public class ExpenseIncomeController {
     }
 
     @CrossOrigin
-    @PutMapping("/setGoal")
-    public ResponseEntity<?> setSavingsGoal(@RequestBody double savingGoalBankUser) throws SQLException {
-        return new ResponseEntity<>(setSavingsGoalHelper(savingGoalBankUser), HttpStatus.OK);
+    @RequestMapping(value = "/setSavingsGoal/{id}/{amount}", method = RequestMethod.GET)
+    public ResponseEntity<?> setSavingsGoal(@PathVariable("id") String id, @PathVariable("amount") double amount) throws SQLException {
+        boolean updated = setSavingsGoalHelper(id,amount);
+        if(!updated){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public void setSavingsGoalHelper(double savingGoal) throws SQLException {
-            String updateSavingsGoal = "update users set savings_goal = ? where username = '" + id + "'";
-
+    public boolean setSavingsGoalHelper(String username, double savingsGoal) throws SQLException {
+        String updateSavingsGoal = "UPDATE bank.users SET savings_goal = " + savingsGoal + " WHERE username = '" + username + "'";
+        int updated = statement.executeUpdate(updateSavingsGoal);
+        return updated > 0;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
