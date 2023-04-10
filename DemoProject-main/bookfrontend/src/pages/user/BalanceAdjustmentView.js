@@ -83,7 +83,7 @@ function BalanceAdjustmentView(props) {
       total_balance: newBalance
     });
 
-    fetch("/userInitialBalance/" + id + newBalance, {
+    fetch("http://localhost:8080/userInitialBalance/" + id + "/" + newBalance, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
