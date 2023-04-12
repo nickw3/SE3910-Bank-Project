@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from './CommerceBankLogo.png';
 import './App.css';
 import {Container} from 'react-bootstrap';
@@ -10,13 +11,14 @@ import JoinForm from './pages/user/JoinForm';
 import UpdateForm from './pages/user/UpdateForm';
 import Detail from './pages/book/Detail';
 import MonthlyCalendarView from './pages/user/MonthlyCalendarView';
-import BalanceAdjustmentView from './pages/user/BalanceAdjustmentView'
-
+import BalanceAdjustmentView from './pages/user/BalanceAdjustmentView';
+import LoanCalculator from './pages/user/LoanCalculator';
 
 function App() {
   return (
     <div>
       <Container>
+        <Route path="/LoanCalculator" exact={true} component={LoanCalculator}/>
         <Route path="/" exact={true} component={LoginForm}/>
         <Route path="/save" exact={true} component={SaveForm}/>
         <Route path="/book/:id" exact={true} component={Detail}/>
