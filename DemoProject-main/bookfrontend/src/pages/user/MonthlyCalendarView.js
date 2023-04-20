@@ -4,12 +4,41 @@ import { Calendar } from 'react-calendar';
 import { TileContent } from 'react-calendar';
 import ExpenseIncome from '../../components/ExpenseIncome'; 
 
+//Monthly calendar and savings goal
 function MonthlyCalendarView(props) {
 
 const id=props.match.params.id;
 const[user, setUser] = useState([]);
 const[expenses, setExpense] = useState([]);
 const[value, onChange] = useState(new Date());
+//for the savings goal:
+const [savingsGoal, setSavingsGoal] = useState(0);
+const [showForm, setShowForm] = useState(false);
+const [newSavingsGoal, setNewSavingsGoal]=useState(savingsGoal);
+
+function handleSavingsGoalChange(event){
+  setNewSavingsGoal(event.target.value);
+}
+
+//for savings goal:
+function handleSavingsGoalSubmit(event){
+  event.preventDefault();
+  setSavingsGoal(newSavingsGoal);
+  setShowForm(false);
+  //not sure how to do this but maybe an idea
+  //can't complete this because I don't have the backend code.
+  // fetch('http://localhost:8080/user/'+id,{
+  //   method: 'PUT',
+  //   body: JSON.stringify({savings_goal: newSavingsGoal}),
+  //   headers: {'Content-Type': 'application/json'}
+  // });
+}
+
+function handleFormClose(){
+  setShowForm(false);
+  setNewSavingsGoal(savingsGoal);
+}
+
 
 function tileContent({date}){
     var summary = "\n";
@@ -37,23 +66,43 @@ function tileContent({date}){
     }
 }
 
+
 useEffect(()=>{
   fetch("http://localhost:8080/expense/" + id, {method:"GET"})
     .then(res => res.json())
     .then(res=> {setExpense(res);})
   fetch("http://localhost:8080/user/" + id, {method:"GET"})
   .then(res => res.json())
-  .then(res=> {setUser(res);})
+  .then(res=> {setUser(res); setSavingsGoal(res.savings_goal)})
 },[])
 
   return (
     <div>
       <header class="loginheader">
-          <div className="banklogo"/>
+        <div className="banklogo"/>
       </header>
+      <form onSubmit={handleSavingsGoalSubmit}>
+        <div>
+          <p>Monthly Savings Goal: ${savingsGoal}</p>
+          <Button onClick={() => setShowForm(true)}>Change Goal</Button>
+          <br></br>
+        </div>
+      </form>
+        {showForm && (
+          <Form onSubmit={handleSavingsGoalSubmit}>
+            <Form.Group controlId="formSavingsGoal">
+              <Form.Label>Enter Monthly Savings Goal: $</Form.Label>
+              <Form.Control type="number" value={newSavingsGoal} onChange={handleSavingsGoalChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit">Save</Button>
+            <Button variant="secondary" onClick={handleFormClose}>Cancel</Button>
+          </Form>
+        )}
       <Calendar onChange={onChange} value={value} tileContent={tileContent} tileClassName={'calendar-tile'}/>
     </div>
   );
 }
+
+
 
 export default MonthlyCalendarView;
