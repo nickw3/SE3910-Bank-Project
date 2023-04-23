@@ -23,7 +23,7 @@ create table expenses (
     primary key (expense_id)
 );
 
-insert into uuserssers values ('nickw3', 'Nicholas Whorton', 'password', 1000, 200, 0);
+insert into users values ('nickw3', 'Nicholas Whorton', 'password', 1000, 200, 0);
 insert into users values ('bretts4', 'Brett Smith', 'password', 2000, 300, 0);
 insert into users values ('carterp5', 'Carter Putnam', 'password', 3000, 400, 0);
 insert into users values ('rileyl6', 'Riley Lowe', 'password', 4000, 500, 0);
