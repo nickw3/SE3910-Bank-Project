@@ -142,6 +142,19 @@ public class ExpenseIncomeController {
         return test;
     }
 
+    @CrossOrigin
+    @GetMapping("deleteExpense/{id}")
+    public ResponseEntity<?> deleteExpense(@PathVariable ("id") String id) throws SQLException{
+        if(deleteExpenseHelper(id) == null)
+            return new ResponseEntity<>(deleteExpenseHelper(id),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(deleteExpenseHelper(id),HttpStatus.OK);
+    }
+
+    public String deleteExpenseHelper(String id) throws SQLException{
+        statement.execute("delete from bank.expenses where expense_id = " + "'" + id + "'");
+        return("Expense #" + id + "deleted.");
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Old Code from previous database project with examples of querying a database
 
