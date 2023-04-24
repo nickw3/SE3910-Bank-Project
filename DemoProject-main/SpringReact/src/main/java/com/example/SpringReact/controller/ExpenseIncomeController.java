@@ -1,14 +1,13 @@
 package com.example.SpringReact.controller;
 
 import com.example.SpringReact.domain.ExpenseIncome;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -153,6 +152,21 @@ public class ExpenseIncomeController {
     public String deleteExpenseHelper(String id) throws SQLException{
         statement.execute("delete from bank.expenses where expense_id = " + "'" + id + "'");
         return("Expense #" + id + "deleted.");
+    }
+    
+    @RequestMapping(value = "/setSavingsGoal/{id}/{amount}", method = RequestMethod.GET)
+    public ResponseEntity<?> setSavingsGoal(@PathVariable("id") String id, @PathVariable("amount") double amount) throws SQLException {
+        boolean updated = setSavingsGoalHelper(id,amount);
+        if(!updated){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public boolean setSavingsGoalHelper(String username, double savingsGoal) throws SQLException {
+        String updateSavingsGoal = "UPDATE bank.users SET savings_goal = " + savingsGoal + " WHERE username = '" + username + "'";
+        int updated = statement.executeUpdate(updateSavingsGoal);
+        return updated > 0;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

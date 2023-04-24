@@ -1,7 +1,5 @@
 package com.example.SpringReact.service;
 
-import com.example.SpringReact.domain.Book;
-import com.example.SpringReact.domain.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

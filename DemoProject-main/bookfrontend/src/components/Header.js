@@ -1,20 +1,23 @@
-import react from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import React from 'react';
+import {Container, Nav, Navbar } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
 
  
-function App() {
+function App(props) {
+  const id = props.id;
   return (
 <>
-  <Navbar bg="dark" variant="dark">
+  <Navbar bg="dark" variant="dark" className="mx-auto">
     <Container>
-    <Link to ="/" className = "navbar-brand">Home</Link>
 
     <Nav className="me-auto">
-      <Link to ="/join" className = "nav-link">Sign-up</Link>
-      <Link to ="/login" className = "nav-link">Login</Link>
-      <Link to ="/save" className = "nav-link">Write</Link>
- 
+      <Link to ={"/CalendarView/" + id} className = "nav-link">Calendar</Link>
+      <Link to ={"/BalanceView/" + id} className = "nav-link">Balance</Link>
+      <Link to ={"/LoanCalculator/" + id} className = "nav-link">Loan Calculator</Link>
     </Nav>
     </Container>
   </Navbar>
@@ -25,5 +28,5 @@ function App() {
   );
 }
 
-export default App;
 
+export default App;
