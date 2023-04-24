@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 
 function LoanCalculatorView(props) {
 
-  const id = props.match.params.id;
+  const id=props.location.state;
 
   const[expenses, setExpense] = useState([]);
   const[user, setUser] = useState([]);

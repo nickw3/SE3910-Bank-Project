@@ -41,7 +41,11 @@ function LoginForm(props) {
     .then(res=>{
       console.log(res)
       if(res!==null){
-        props.history.push('/balanceAdjustment/' + bankuser.username);
+        console.log(bankuser.username)
+        props.history.push({ 
+          pathname: '/BalanceView',
+          state: bankuser.username
+         });
       }else{
         alert('fails');
       }
