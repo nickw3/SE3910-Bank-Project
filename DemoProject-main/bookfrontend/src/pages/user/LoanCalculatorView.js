@@ -6,6 +6,11 @@ import Header from '../../components/Header';
 
 function LoanCalculatorView(props) {
 
+  const id = props.match.params.id;
+
+  const[expenses, setExpense] = useState([]);
+  const[user, setUser] = useState([]);
+
   const [inputValues, setInputValues] = useState({
     amount: '',
     term: '',
@@ -16,6 +21,7 @@ function LoanCalculatorView(props) {
     monthlyPayment: '',
     totalPayment: '',
     totalInterest: '',
+    suggestion: '',
   });
 
   const changeValue=(e)=>{
@@ -30,6 +36,15 @@ function LoanCalculatorView(props) {
     loanCalculator(inputValues);
   }
 
+  useEffect(()=>{
+    fetch("http://localhost:8080/expense/" + id, {method:"GET"})
+      .then(res => res.json())
+      .then(res=> {setExpense(res);})
+    fetch("http://localhost:8080/user/" + id, {method:"GET"})
+    .then(res => res.json())
+    .then(res=> {setUser(res);})
+  },[])
+
   const loanCalculator = ({ amount, term, interest }) => {
     const userAmount = Number(amount);
     const calculatedInterest = Number(interest) / 100;
@@ -42,10 +57,23 @@ function LoanCalculatorView(props) {
         const totalPaymentCalculated = (monthly * calculatedPayments).toFixed(2);
         const totalInterestCalculated = (monthly * calculatedPayments - userAmount).toFixed(2);
 
+        var suggestion;
+        if(user.savings_goal < monthlyPaymentCalculated){
+          suggestion = "This loan will exceed your monthly savings goal of " + user.savings_goal;
+        }
+        if(user.account_balance < monthlyPaymentCalculated){
+          suggestion = "This loan will exceed your total balance of " + user.account_balance;
+        }
+        else{
+          suggestion = "This loan is within your budget";
+        }
+
         setResults({
             monthlyPayment: monthlyPaymentCalculated,
             totalPayment: totalPaymentCalculated,
             totalInterest: totalInterestCalculated,
+            suggestion: suggestion,
+
         });
     }
     return;
@@ -57,7 +85,7 @@ function LoanCalculatorView(props) {
           <div className="banklogo"/>
       </header>
       <div>
-        <Header/>
+        <Header id={id}/>
       </div>
       <div className="newexpenseform">
         <Form onSubmit={handleSubmit}>
@@ -87,6 +115,10 @@ function LoanCalculatorView(props) {
             <Form.Group>
               <Form.Label>Total Interest</Form.Label>
               <Form.Control type="text" name="totalInterest" value={results.totalInterest} disabled/>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Suggestion</Form.Label>
+              <Form.Control type="text" name="suggestion" value={results.suggestion} disabled/>
             </Form.Group>
           </Form>
         </div>

@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Calendar } from 'react-calendar';
 import { TileContent } from 'react-calendar';
 import ExpenseIncome from '../../components/ExpenseIncome'; 
+import Header from '../../components/Header';
 
 //Monthly calendar and savings goal
 function MonthlyCalendarView(props) {
@@ -81,6 +82,9 @@ useEffect(()=>{
       <header class="loginheader">
         <div className="banklogo"/>
       </header>
+      <div>
+        <Header id={id}/>
+      </div>
       <form onSubmit={handleSavingsGoalSubmit}>
         <div>
           <p>Monthly Savings Goal: ${savingsGoal}</p>

@@ -13,9 +13,9 @@ function App() {
     <div>
       <Container>
         <Route path="/" exact={true} component={LoginForm}/>
-        <Route path="/testCalendar/:id" exact={true} component={MonthlyCalendarView}/>
-        <Route path="/balanceAdjustment/:id" exact={true} component={BalanceAdjustmentView}/>
-        <Route path="/loanCalculatorView/" exact={true} component={LoanCalculatorView}/>      
+        <Route path="/CalendarView/:id" exact={true} component={MonthlyCalendarView}/>
+        <Route path="/BalanceView/:id" exact={true} component={BalanceAdjustmentView}/>
+        <Route path="/LoanCalculator/:id" exact={true} component={LoanCalculatorView}/>      
       </Container>    
     </div>
   );
