@@ -6,7 +6,8 @@ import Header from '../../components/Header';
 
 function BalanceAdjustmentView(props) {
 
-  const id=props.match.params.id;
+  const id=props.location.state;
+  console.log(props.id);
   const[user, setUser] = useState([]);
   const[expenses, setExpense] = useState([]);
   const[newExpense, setNewExpense] = useState({
@@ -146,7 +147,7 @@ function BalanceAdjustmentView(props) {
       <Button type="button" variant="secondary" onClick={refreshTable}>
                 Refresh  
       </Button>
-      <h1>Create Expense</h1>
+      <h1>Create</h1>
       <div className="newexpenseform">
         <Form onSubmit={createNewExpense}>
             <Form.Group>

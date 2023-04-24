@@ -15,9 +15,18 @@ function App(props) {
     <Container>
 
     <Nav className="me-auto">
-      <Link to ={"/CalendarView/" + id} className = "nav-link">Calendar</Link>
-      <Link to ={"/BalanceView/" + id} className = "nav-link">Balance</Link>
-      <Link to ={"/LoanCalculator/" + id} className = "nav-link">Loan Calculator</Link>
+      <Link to ={{
+        pathname: "/CalendarView/",
+        state: id
+      }} className = "nav-link">Calendar</Link>
+      <Link to ={{
+        pathname: "/BalanceView/",
+        state: id
+      }} className = "nav-link">Balance</Link>
+      <Link to ={{
+        pathname: "/LoanCalculator/",
+        state: id
+      }} className = "nav-link">Loan Calculator</Link>
     </Nav>
     </Container>
   </Navbar>

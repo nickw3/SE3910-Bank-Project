@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 //Monthly calendar and savings goal
 function MonthlyCalendarView(props) {
 
-const id=props.match.params.id;
+  const id=props.location.state;
 const[user, setUser] = useState([]);
 const[expenses, setExpense] = useState([]);
 const[value, onChange] = useState(new Date());
