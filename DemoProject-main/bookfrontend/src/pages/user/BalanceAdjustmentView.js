@@ -51,6 +51,7 @@ function BalanceAdjustmentView(props) {
     .then(res=>{
         console.log(1,res);
         if(res.status === 200){
+          refreshTable();
           return res.json();
         }else{
           return null;
@@ -63,6 +64,23 @@ function BalanceAdjustmentView(props) {
       .then(res => res.json())
       .then(res=> {setExpense(res);}
     );
+  }
+
+  const deleteExpense =()=>{
+    const deleteID=document.getElementById("deleteID").value;
+    fetch("http://localhost:8080/deleteExpense/" + deleteID, {method:"GET"})
+      .then(res=>{
+        console.log(1,res);
+        if(res.status === 200){
+          window.location.reload();
+          return res.json();
+        }else{
+          return null;
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   //Ally's code for submitting initial balance
@@ -100,8 +118,6 @@ function BalanceAdjustmentView(props) {
       });
     })
   };
-  
-  
 
   return (
     <div>
@@ -174,6 +190,21 @@ function BalanceAdjustmentView(props) {
             </div>
           </Form>
         </div>
+
+        <form>
+            <br></br>
+            <h3>Delete Expense</h3>
+            <Form.Group>
+              <Form.Label>Expense ID</Form.Label>
+              <Form.Control type="text" placeholder="Enter expense id to be deleted" name="deleteID" id='deleteID'/>
+            </Form.Group>
+
+            <div className="expensesubmit">
+              <Button type="button" variant="secondary" onClick={deleteExpense}>
+                Delete  
+              </Button>
+            </div>
+          </form>
     </div>
   );
 }

@@ -142,6 +142,18 @@ public class ExpenseIncomeController {
     }
 
     @CrossOrigin
+    @GetMapping("deleteExpense/{id}")
+    public ResponseEntity<?> deleteExpense(@PathVariable ("id") String id) throws SQLException{
+        if(deleteExpenseHelper(id) == null)
+            return new ResponseEntity<>(deleteExpenseHelper(id),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(deleteExpenseHelper(id),HttpStatus.OK);
+    }
+
+    public String deleteExpenseHelper(String id) throws SQLException{
+        statement.execute("delete from bank.expenses where expense_id = " + "'" + id + "'");
+        return("Expense #" + id + "deleted.");
+    }
+    
     @RequestMapping(value = "/setSavingsGoal/{id}/{amount}", method = RequestMethod.GET)
     public ResponseEntity<?> setSavingsGoal(@PathVariable("id") String id, @PathVariable("amount") double amount) throws SQLException {
         boolean updated = setSavingsGoalHelper(id,amount);
