@@ -109,7 +109,7 @@ function BalanceAdjustmentView(props) {
           <div className="banklogo"/>
       </header>
       <div>
-        <Header/>
+        <Header id={id}/>
       </div>
       <Form>
         <Form.Group controlId="formBasicEmail" className="balanceform" class="accountbalance">
@@ -126,6 +126,7 @@ function BalanceAdjustmentView(props) {
           {/*End ally's code*/}
         </Form.Group>
       </Form>
+      <h1>Expenses and Incomes</h1>
       <Table>
         <thead>
           <tr>
@@ -145,6 +146,7 @@ function BalanceAdjustmentView(props) {
       <Button type="button" variant="secondary" onClick={refreshTable}>
                 Refresh  
       </Button>
+      <h1>Create Expense</h1>
       <div className="newexpenseform">
         <Form onSubmit={createNewExpense}>
             <Form.Group>

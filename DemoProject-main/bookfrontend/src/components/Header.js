@@ -7,27 +7,17 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 
  
-function App() {
+function App(props) {
+  const id = props.id;
   return (
 <>
   <Navbar bg="dark" variant="dark" className="mx-auto">
     <Container>
-      <Dropdown as={ButtonGroup}>
-        <Link to="/Home">
-        <Button variant="success">Home</Button>
-        </Link>
-        <Dropdown.Toggle split variant="success" id="dropdown-split-basic">
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu variant="dark">
-          <Dropdown.Item href="/book/:id">Detail</Dropdown.Item>
-          </Dropdown.Menu>
-      </Dropdown>
 
     <Nav className="me-auto">
-      <Link to ="/testCalendar/:id" className = "nav-link">Calendar</Link>
-      <Link to ="/balanceAdjustment/:id" className = "nav-link">Balance</Link>
-      <Link to ="/LoanCalculator/:id" className = "nav-link">Loan Calculator</Link>
+      <Link to ={"/CalendarView/" + id} className = "nav-link">Calendar</Link>
+      <Link to ={"/BalanceView/" + id} className = "nav-link">Balance</Link>
+      <Link to ={"/LoanCalculator/" + id} className = "nav-link">Loan Calculator</Link>
     </Nav>
     </Container>
   </Navbar>

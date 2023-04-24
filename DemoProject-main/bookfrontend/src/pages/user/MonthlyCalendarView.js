@@ -83,7 +83,7 @@ useEffect(()=>{
         <div className="banklogo"/>
       </header>
       <div>
-        <Header/>
+        <Header id={id}/>
       </div>
       <form onSubmit={handleSavingsGoalSubmit}>
         <div>
