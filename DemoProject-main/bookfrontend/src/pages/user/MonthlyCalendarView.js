@@ -16,6 +16,9 @@ const[value, onChange] = useState(new Date());
 const [savingsGoal, setSavingsGoal] = useState(0);
 const [showForm, setShowForm] = useState(false);
 const [newSavingsGoal, setNewSavingsGoal]=useState(savingsGoal);
+const [budget, setBudget]=useState(0);
+const [balance, setBalance] = useState(0);
+const [targetBalance, setTargetBalance] = useState(0);
 
 function handleSavingsGoalChange(event){
   setNewSavingsGoal(event.target.value);
@@ -28,11 +31,7 @@ function handleSavingsGoalSubmit(event){
   setShowForm(false);
   //not sure how to do this but maybe an idea
   //can't complete this because I don't have the backend code.
-  // fetch('http://localhost:8080/user/'+id,{
-  //   method: 'PUT',
-  //   body: JSON.stringify({savings_goal: newSavingsGoal}),
-  //   headers: {'Content-Type': 'application/json'}
-  // });
+   fetch('http://localhost:8080/setMonthlyBalance/' + id + '/' + newSavingsGoal);
 }
 
 function handleFormClose(){
@@ -67,14 +66,46 @@ function tileContent({date}){
     }
 }
 
+//Target savings balance based on day of the month
+function calcTargetBalance(){
+  const daysInMonth = new Date(value.getFullYear(), value.getMonth()+1,0).getDate();
+  const targetBalance = savingsGoal / daysInMonth * value.getDate();
+  return targetBalance;
+}
+
+//calculate current savings balance
+function calculateSavingsBalance(){
+  let balance = user.total_balance;
+  expenses.forEach((expense)=>{
+    if(expense.income_or_expenses==1){
+      balance += expense.amount;
+    }
+    else{
+      balance -= expense.amount;
+    }
+  });
+  return balance;
+}
+
 
 useEffect(()=>{
   fetch("http://localhost:8080/expense/" + id, {method:"GET"})
     .then(res => res.json())
-    .then(res=> {setExpense(res);})
+    .then(res=> {
+      setExpense(res);
+      let totalExpense=0;
+      res.forEach((expense) =>{
+        if(expense.income_or_expense == 0){
+          totalExpense+=expense.amount;
+        }
+      });
+      setBudget(user.starting_budget-totalExpense);
+    })
   fetch("http://localhost:8080/user/" + id, {method:"GET"})
   .then(res => res.json())
-  .then(res=> {setUser(res); setSavingsGoal(res.savings_goal)})
+  .then(res=> {setUser(res); setSavingsGoal(res.savings_goal);
+                const target = calcTargetBalance(); const current=calculateSavingsBalance();
+                setTargetBalance(target); setBalance(current);})
 },[])
 
   return (
