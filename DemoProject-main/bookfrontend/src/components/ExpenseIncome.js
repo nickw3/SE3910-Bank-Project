@@ -4,7 +4,19 @@ import { Link } from 'react-router-dom';
  
 function Expense(props) {
 
-  const {username, expense_id, planned, amount, income_or_expense, information, due_date} = props.expense;
+  var {username, expense_id, planned, amount, income_or_expense, information, due_date} = props.expense;
+  if(income_or_expense === 0){
+    income_or_expense = 'expense';
+  }
+  if(income_or_expense === 1){
+    income_or_expense = 'income';
+  }
+  if(planned === 0){
+    planned = 'unplanned';
+  }
+  if(planned === 1){
+    planned = 'planned';
+  }
   return (
     <tr>
         <td>{username}</td>
