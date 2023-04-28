@@ -129,11 +129,6 @@ useEffect(()=>{
             <Button variant="secondary" onClick={handleFormClose}>Cancel</Button>
           </Form>
         )}
-        <div>
-          <p>Target Daily Balance: ${targetBalance}</p>
-          <p>Projected Daily Balance: ${balance}</p>
-          <p>{balance < targetBalance ? 'You are projected to be under your daily balance target!' : 'You are projected to meet or go over your daily balance target.'}</p>
-        </div>
       <Calendar onChange={onChange} value={value} tileContent={tileContent} tileClassName={'calendar-tile'}/>
     </div>
   );
