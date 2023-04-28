@@ -27,11 +27,7 @@ function handleSavingsGoalSubmit(event){
   setShowForm(false);
   //not sure how to do this but maybe an idea
   //can't complete this because I don't have the backend code.
-  // fetch('http://localhost:8080/user/'+id,{
-  //   method: 'PUT',
-  //   body: JSON.stringify({savings_goal: newSavingsGoal}),
-  //   headers: {'Content-Type': 'application/json'}
-  // });
+   fetch('http://localhost:8080/setMonthlyBalance/' + id + '/' + newSavingsGoal);
 }
 
 function handleFormClose(){
