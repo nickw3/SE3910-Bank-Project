@@ -67,23 +67,6 @@ function BalanceAdjustmentView(props) {
     );
   }
 
-  const deleteExpense =()=>{
-    const deleteID=document.getElementById("deleteID").value;
-    fetch("http://localhost:8080/deleteExpense/" + deleteID, {method:"GET"})
-      .then(res=>{
-        console.log(1,res);
-        if(res.status === 200){
-          window.location.reload();
-          return res.json();
-        }else{
-          return null;
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
-
   //Ally's code for submitting initial balance
   //check if user is logged in for first time
   const isFirstTimeUser = user && user.total_balance === 0;
@@ -147,13 +130,13 @@ function BalanceAdjustmentView(props) {
       <Table>
         <thead>
           <tr>
-            <th>username</th>
-            <th>expense_id</th>
-            <th>planned</th>
-            <th>ammount</th>
-            <th>income_or_expense</th>
-            <th>information</th>
-            <th>due_date</th>
+            <th>Username</th>
+            <th>Planned</th>
+            <th>Amount</th>
+            <th>Income or Expense</th>
+            <th>Information</th>
+            <th>Due date</th>
+            <th>Delete expense</th>
           </tr>
         </thead>
         <tbody>
@@ -191,21 +174,6 @@ function BalanceAdjustmentView(props) {
             </div>
           </Form>
         </div>
-
-        <form>
-            <br></br>
-            <h3>Delete Expense</h3>
-            <Form.Group>
-              <Form.Label>Expense ID</Form.Label>
-              <Form.Control type="text" placeholder="Enter expense id to be deleted" name="deleteID" id='deleteID'/>
-            </Form.Group>
-
-            <div className="expensesubmit">
-              <Button type="button" variant="secondary" onClick={deleteExpense}>
-                Delete  
-              </Button>
-            </div>
-          </form>
     </div>
   );
 }
