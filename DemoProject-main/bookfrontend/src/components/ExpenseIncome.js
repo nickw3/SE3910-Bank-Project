@@ -5,8 +5,6 @@ import {Button} from 'react-bootstrap';
  
 function Expense(props) {
 
-  const {username, expense_id, planned, amount, income_or_expense, information, due_date} = props.expense;
-
   const deleteExpense =()=>{
     fetch("http://localhost:8080/deleteExpense/" + expense_id, {method:"GET"})
       .then(res=>{
@@ -22,6 +20,20 @@ function Expense(props) {
         console.error('Error:', error);
       });
     }
+    
+  var {username, expense_id, planned, amount, income_or_expense, information, due_date} = props.expense;
+  if(income_or_expense === 0){
+    income_or_expense = 'expense';
+  }
+  if(income_or_expense === 1){
+    income_or_expense = 'income';
+  }
+  if(planned === 0){
+    planned = 'unplanned';
+  }
+  if(planned === 1){
+    planned = 'planned';
+  }
 
   return (
     <tr>

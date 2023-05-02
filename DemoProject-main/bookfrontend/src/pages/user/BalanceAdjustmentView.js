@@ -19,7 +19,34 @@ function BalanceAdjustmentView(props) {
     information: '',
     due_date: ''
   });
-
+  const [planned, setPlanned] = useState("Planned or Unplanned");	
+  const [income, setIncome] = useState("Income or Expense");	
+  const handlePlannedChange = (e) => {	
+    setPlanned(e.target.value)	
+    if(e.target.value === "Planned"){	
+      setNewExpense({	
+        ...newExpense, planned:'1'	
+       });	
+    }	
+    if(e.target.value === "Unplanned"){	
+      setNewExpense({	
+        ...newExpense, planned:'0'	
+       });	
+    }	
+  }	
+  const handleIncomeChange = (e) => {	
+    setIncome(e.target.value)	
+    if(e.target.value === "Income"){	
+      setNewExpense({	
+        ...newExpense, income_or_expense:'1'	
+       });	
+    }	
+    if(e.target.value === "Expense"){	
+      setNewExpense({	
+        ...newExpense, income_or_expense:'0'	
+       });	
+    }	
+  }	
 
   useEffect(()=>{
     fetch("http://localhost:8080/expense/" + id, {method:"GET"})
@@ -126,7 +153,7 @@ function BalanceAdjustmentView(props) {
           {/*End ally's code*/}
         </Form.Group>
       </Form>
-      <h1>Expenses and Incomes</h1>
+      <h3>Expenses and Incomes</h3>
       <Table>
         <thead>
           <tr>
@@ -146,19 +173,25 @@ function BalanceAdjustmentView(props) {
       <Button type="button" variant="secondary" onClick={refreshTable}>
                 Refresh  
       </Button>
-      <h1>Create</h1>
+      <h3>Create</h3>
       <div className="newexpenseform">
         <Form onSubmit={createNewExpense}>
-            <Form.Group>
-              <Form.Label>Planned</Form.Label>
-              <Form.Control type="text" placeholder="Enter 1 if planned or 0 if unplanned" onChange = {changeValue} name="planned" value={newExpense.planned}/>
+            <Form.Label>Planned or Unplanned</Form.Label>	
+            <br/>	
+            <select onChange={handlePlannedChange} value={planned}>	
+              <option value="Planned">Planned</option>	
+              <option value="Unplanned">Unplanned</option>	
+            </select>
+            <Form.Group>	
+              <Form.Label>Amount</Form.Label>	
+              <Form.Control type="text" placeholder="Enter amount" onChange = {changeValue} name="amount" value={newExpense.amount}/>	
             </Form.Group>
-              <Form.Label>Amount</Form.Label>
-              <Form.Control type="text" placeholder="Enter amount" onChange = {changeValue} name="amount" value={newExpense.amount}/>
-            <Form.Group>
-              <Form.Label>Income or Expense</Form.Label>
-              <Form.Control type="text" placeholder="Enter 1 for income or 0 for expense" onChange = {changeValue} name="income_or_expense" value={newExpense.income_or_expense}/>
-            </Form.Group>
+            <Form.Label>Income or Expense</Form.Label>	
+            <br/>	
+            <select onChange={handleIncomeChange} value={income}>	
+              <option value="Income">Income</option>	
+              <option value="Expense">Expense</option>	
+            </select>
             <Form.Group>
               <Form.Label>Information</Form.Label>
               <Form.Control type="text" placeholder="Enter information" onChange = {changeValue} name="information" value={newExpense.information}/>
